@@ -6,8 +6,10 @@ public class Player : MonoBehaviour
 {
 
     [SerializeField, Range(1, 10), Tooltip("Speed Control")] float speed = 5;
+    [SerializeField, Range(1, 100), Tooltip("Rotate Control")] float rotationRate = 5;
 
-    public GameObject Cube;
+    public GameObject Bullet;
+    public Transform bulletOrigin;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +21,15 @@ public class Player : MonoBehaviour
     void Update()
     {
         Vector3 direction = new Vector3(0, 0, 0);
-        direction.x = Input.GetAxis("Horizontal");
         direction.z = Input.GetAxis("Vertical");
+
+        Vector3 rotation = Vector3.zero;
+        rotation.y = Input.GetAxis("Horizontal");
+
+        Quaternion rotate = Quaternion.Euler(rotation * rotationRate * Time.deltaTime);
+        transform.rotation *= (rotate);
+        transform.Translate(direction * speed * Time.deltaTime);
+        //transform.position += direction * speed * Time.deltaTime;
 
         //if (Input.GetKey(KeyCode.A))
         //{
@@ -41,10 +50,9 @@ public class Player : MonoBehaviour
 
         if (Input.GetButton("Fire1"))
         {
-            Instantiate(Cube);
+            Instantiate(Bullet, bulletOrigin.position, bulletOrigin.rotation);
         }
 
-        transform.position += direction * speed * Time.deltaTime;
     }
 
     private void Awake()
