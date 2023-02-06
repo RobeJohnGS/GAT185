@@ -48,6 +48,11 @@ public class CharacterPlayer : MonoBehaviour
 		Vector3 look = direction;
 		look.y = 0;
 		transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), turnRate * Time.deltaTime);
+
+		if (transform.position.y <= -10.0f)
+		{
+			transform.position = Vector3.zero;
+		}
     }
 
 	void OnControllerColliderHit(ControllerColliderHit hit)

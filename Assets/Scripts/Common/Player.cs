@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
 
     public GameObject Bullet;
     public Transform bulletOrigin;
+
+    public int score;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,4 +62,6 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Awake");
     }
+
+    
 }
